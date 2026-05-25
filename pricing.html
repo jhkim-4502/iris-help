@@ -1,0 +1,433 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="슬이봇 제작 및 운영 요금제 안내">
+  <title>슬이봇 요금제</title>
+  <style>
+    :root {
+      --bg: #f5f7fb;
+      --panel: #ffffff;
+      --ink: #172033;
+      --muted: #667085;
+      --line: #d9e0ea;
+      --brand: #0f766e;
+      --brand-dark: #134e4a;
+      --accent: #f59e0b;
+      --soft: #e9f7f4;
+      --shadow: 0 18px 50px rgba(23, 32, 51, 0.11);
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--ink);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Malgun Gothic", sans-serif;
+      line-height: 1.55;
+    }
+
+    a { color: inherit; }
+    .wrap { width: min(1120px, calc(100% - 32px)); margin: 0 auto; }
+
+    .hero {
+      min-height: 520px;
+      display: grid;
+      align-items: end;
+      color: #fff;
+      background:
+        linear-gradient(90deg, rgba(9, 35, 42, 0.88), rgba(9, 35, 42, 0.54)),
+        url("https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1800&q=80") center / cover;
+      border-bottom: 5px solid var(--accent);
+    }
+
+    .hero-inner { padding: 72px 0 62px; }
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin: 0 0 14px;
+      color: #fde68a;
+      font-size: 14px;
+      font-weight: 800;
+    }
+    .eyebrow::before {
+      content: "";
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--accent);
+    }
+    h1 {
+      max-width: 760px;
+      margin: 0 0 18px;
+      font-size: clamp(38px, 7vw, 72px);
+      line-height: 1.05;
+      letter-spacing: 0;
+    }
+    .hero p {
+      max-width: 690px;
+      margin: 0;
+      color: #dbeafe;
+      font-size: 19px;
+    }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: rgba(255, 255, 255, 0.92);
+      border-bottom: 1px solid var(--line);
+      backdrop-filter: blur(10px);
+    }
+    .topbar .wrap {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      min-height: 62px;
+    }
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 900;
+      text-decoration: none;
+    }
+    .brand-mark {
+      width: 34px;
+      height: 34px;
+      display: grid;
+      place-items: center;
+      border-radius: 8px;
+      background: var(--brand);
+      color: #fff;
+    }
+    .nav {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+    .nav a {
+      padding: 9px 11px;
+      color: var(--muted);
+      font-size: 14px;
+      font-weight: 700;
+      text-decoration: none;
+      border-radius: 7px;
+    }
+    .nav a:hover { color: var(--brand-dark); background: var(--soft); }
+
+    main { padding: 32px 0 54px; }
+    .section-head {
+      display: grid;
+      gap: 8px;
+      margin: 0 0 18px;
+    }
+    .section-head h2 {
+      margin: 0;
+      font-size: 30px;
+      letter-spacing: 0;
+    }
+    .section-head p {
+      max-width: 720px;
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .plans {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+      margin-bottom: 34px;
+    }
+    .plan {
+      position: relative;
+      display: grid;
+      gap: 18px;
+      align-content: start;
+      min-height: 100%;
+      padding: 24px;
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      box-shadow: 0 8px 24px rgba(23, 32, 51, 0.06);
+    }
+    .plan.featured {
+      border-color: var(--brand);
+      box-shadow: var(--shadow);
+    }
+    .badge {
+      width: max-content;
+      padding: 6px 9px;
+      color: var(--brand-dark);
+      background: var(--soft);
+      border: 1px solid #b7e3db;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 900;
+    }
+    .plan h3 {
+      margin: 0;
+      font-size: 23px;
+      letter-spacing: 0;
+    }
+    .price {
+      display: grid;
+      gap: 2px;
+      margin: 0;
+    }
+    .price strong {
+      font-size: 34px;
+      line-height: 1;
+      letter-spacing: 0;
+    }
+    .price span { color: var(--muted); }
+    .plan ul {
+      display: grid;
+      gap: 10px;
+      padding: 0;
+      margin: 0;
+      list-style: none;
+    }
+    .plan li {
+      display: grid;
+      grid-template-columns: 24px 1fr;
+      gap: 8px;
+      align-items: start;
+      color: #344054;
+    }
+    .check {
+      width: 22px;
+      height: 22px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      background: var(--soft);
+      color: var(--brand);
+      font-weight: 900;
+    }
+    .button {
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 44px;
+      padding: 10px 14px;
+      border-radius: 7px;
+      color: #fff;
+      background: var(--brand);
+      font-weight: 900;
+      text-decoration: none;
+    }
+    .button.secondary {
+      color: var(--brand-dark);
+      background: var(--soft);
+      border: 1px solid #b7e3db;
+    }
+
+    .compare {
+      margin-bottom: 34px;
+      overflow-x: auto;
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+    }
+    table {
+      width: 100%;
+      min-width: 760px;
+      border-collapse: collapse;
+    }
+    th, td {
+      padding: 15px 16px;
+      border-bottom: 1px solid var(--line);
+      text-align: left;
+      vertical-align: top;
+    }
+    th {
+      background: #f8fafc;
+      font-size: 14px;
+    }
+    tr:last-child td { border-bottom: 0; }
+    td:not(:first-child) { color: #344054; }
+
+    .note {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 18px;
+      align-items: center;
+      padding: 24px;
+      background: var(--brand-dark);
+      color: #fff;
+      border-radius: 8px;
+    }
+    .note h2 {
+      margin: 0 0 6px;
+      font-size: 24px;
+      letter-spacing: 0;
+    }
+    .note p {
+      margin: 0;
+      color: #ccfbf1;
+    }
+
+    footer {
+      padding: 26px 0 34px;
+      color: var(--muted);
+      text-align: center;
+      border-top: 1px solid var(--line);
+    }
+
+    @media (max-width: 900px) {
+      .plans { grid-template-columns: 1fr; }
+      .note { grid-template-columns: 1fr; }
+      .hero { min-height: 470px; }
+    }
+    @media (max-width: 640px) {
+      .topbar .wrap { align-items: flex-start; flex-direction: column; padding: 12px 0; }
+      .nav { justify-content: flex-start; }
+      .hero-inner { padding: 58px 0 48px; }
+      .hero p { font-size: 17px; }
+      .plan { padding: 20px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="hero" id="top">
+    <div class="wrap hero-inner">
+      <p class="eyebrow">BOT SERVICE PRICING</p>
+      <h1>슬이봇 요금제</h1>
+      <p>오픈채팅 운영, 출석, 포인트, 게임, 관리자 기능까지 방 규모에 맞춰 선택할 수 있는 봇 제작 및 운영 플랜입니다.</p>
+    </div>
+  </header>
+
+  <div class="topbar">
+    <div class="wrap">
+      <a class="brand" href="#top" aria-label="슬이봇 요금제 상단으로 이동">
+        <span class="brand-mark">S</span>
+        <span>슬이봇 요금제</span>
+      </a>
+      <nav class="nav" aria-label="페이지 이동">
+        <a href="#plans">요금제</a>
+        <a href="#compare">기능 비교</a>
+        <a href="#contact">문의</a>
+      </nav>
+    </div>
+  </div>
+
+  <main class="wrap">
+    <section id="plans" aria-labelledby="plans-title">
+      <div class="section-head">
+        <h2 id="plans-title">운영 방식에 맞춘 플랜</h2>
+        <p>가격과 항목은 실제 판매 정책에 맞춰 바로 수정할 수 있도록 구성했습니다.</p>
+      </div>
+
+      <div class="plans">
+        <article class="plan">
+          <span class="badge">입문 운영</span>
+          <h3>Basic</h3>
+          <p class="price"><strong>문의</strong><span>기본 세팅형</span></p>
+          <ul>
+            <li><span class="check">✓</span><span>기본 명령어 및 도움말 페이지 연결</span></li>
+            <li><span class="check">✓</span><span>출석, 채팅순위, 포인트 기능</span></li>
+            <li><span class="check">✓</span><span>방 1개 기준 초기 세팅</span></li>
+          </ul>
+          <a class="button secondary" href="#contact">상담하기</a>
+        </article>
+
+        <article class="plan featured">
+          <span class="badge">추천</span>
+          <h3>Standard</h3>
+          <p class="price"><strong>문의</strong><span>운영 자동화형</span></p>
+          <ul>
+            <li><span class="check">✓</span><span>Basic 포함 전체 기본 기능</span></li>
+            <li><span class="check">✓</span><span>상점, 가방, 홀짝, 강화 게임 구성</span></li>
+            <li><span class="check">✓</span><span>운영진 명령어 및 방별 설정 지원</span></li>
+            <li><span class="check">✓</span><span>간단한 문구 및 디자인 커스터마이징</span></li>
+          </ul>
+          <a class="button" href="#contact">추천 플랜 문의</a>
+        </article>
+
+        <article class="plan">
+          <span class="badge">맞춤 제작</span>
+          <h3>Premium</h3>
+          <p class="price"><strong>별도 견적</strong><span>전용 기능 제작형</span></p>
+          <ul>
+            <li><span class="check">✓</span><span>전용 명령어 및 맞춤 기능 개발</span></li>
+            <li><span class="check">✓</span><span>다중 방 운영 구조 설계</span></li>
+            <li><span class="check">✓</span><span>운영 로그, 백업, 진단 기능 강화</span></li>
+            <li><span class="check">✓</span><span>요청 기반 유지보수 범위 협의</span></li>
+          </ul>
+          <a class="button secondary" href="#contact">견적 문의</a>
+        </article>
+      </div>
+    </section>
+
+    <section id="compare" aria-labelledby="compare-title">
+      <div class="section-head">
+        <h2 id="compare-title">기능 비교</h2>
+        <p>플랜별 제공 범위를 한눈에 확인할 수 있습니다.</p>
+      </div>
+
+      <div class="compare">
+        <table>
+          <thead>
+            <tr>
+              <th>항목</th>
+              <th>Basic</th>
+              <th>Standard</th>
+              <th>Premium</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>기본 봇 세팅</td>
+              <td>포함</td>
+              <td>포함</td>
+              <td>포함</td>
+            </tr>
+            <tr>
+              <td>출석/순위/포인트</td>
+              <td>포함</td>
+              <td>포함</td>
+              <td>포함</td>
+            </tr>
+            <tr>
+              <td>상점/가방/게임</td>
+              <td>협의</td>
+              <td>포함</td>
+              <td>포함 및 확장 가능</td>
+            </tr>
+            <tr>
+              <td>전용 명령어 제작</td>
+              <td>별도 문의</td>
+              <td>소규모 수정</td>
+              <td>맞춤 개발</td>
+            </tr>
+            <tr>
+              <td>운영 지원</td>
+              <td>초기 안내</td>
+              <td>기본 유지보수</td>
+              <td>범위 협의</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="note" id="contact" aria-labelledby="contact-title">
+      <div>
+        <h2 id="contact-title">요금표를 실제 가격으로 바꾸면 바로 판매 페이지로 쓸 수 있어요.</h2>
+        <p>문의 링크, 오픈채팅 링크, 계좌 안내, 신청 폼 주소를 이 영역에 연결하면 됩니다.</p>
+      </div>
+      <a class="button" href="https://notificationbot.github.io/iris-help/">명령어 도움말 보기</a>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">© 슬이봇. Bot service pricing page.</div>
+  </footer>
+</body>
+</html>
